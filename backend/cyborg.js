@@ -1,5 +1,5 @@
-import { CyborgClient } from "@cyborg/client";
-
+import pkg from "cyborgdb";
+const { CyborgClient }= pkg;
 export const cyborg = new CyborgClient({
-  url: "http://localhost:7000"
+  persistPath: "./cyborg-data"   // local storage
 });
