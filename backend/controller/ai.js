@@ -1,13 +1,11 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import axios from "axios";
-import { cyborg } from "./cyborg.js";
-import { embed } from "./embed.js";
+import { cyborg } from "../cyborg.js";
+import { embed } from "../embed.js";
 
-const router = express.Router();
-
-router.post("/ask", async (req, res) => {
-  try {
+const generateAIResponse = async (req, res) => {
+    try {
     const token = req.headers.authorization?.split(" ")[1];
     const { user_id } = jwt.verify(token, "SECRET_KEY");
 
@@ -47,6 +45,6 @@ router.post("/ask", async (req, res) => {
     console.error(err);
     res.status(500).json({ message: "AI error" });
   }
-});
+};
 
-export default router;
+export { generateAIResponse };

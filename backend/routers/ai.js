@@ -1,5 +1,5 @@
 import express from "express";
-import { generateAIResponse } from "../controllers/aiController.js";
+import { generateAIResponse } from "../controller/ai.js";
 
 const router = express.Router();    
 router.post("/generate", generateAIResponse);
