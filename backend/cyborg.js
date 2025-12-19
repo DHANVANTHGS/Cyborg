@@ -1,18 +1,11 @@
-// TODO: cyborgdb package is not available or has import issues
-// Temporarily using a mock implementation
-// import { Client } from "cyborgdb";
+import cyborgdb from "cyborgdb";
 
-export const cyborg = {
-  query: async (options) => {
-    console.warn("CyborgDB not configured - returning empty results");
-    return { matches: [] };
-  },
-  createCollection: async (name) => {
-    console.warn("CyborgDB not configured - mock collection created");
-    return {
-      add: async (items) => {
-        console.log("Mock add:", items.length, "items");
-      }
-    };
-  }
-};
+const { Client } = cyborgdb;
+
+// Initialize CyborgDB client
+// For local development, use http://localhost:8080
+// For production, use the CyborgDB cloud endpoint
+export const cyborg = new Client({
+  baseUrl: process.env.CYBORGDB_URL || "http://localhost:8080",
+  apiKey: process.env.CYBORGDB_API_KEY // Optional for local dev
+});
