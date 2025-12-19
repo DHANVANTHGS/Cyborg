@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
-import authRoutes from "./auth.js";
-import aiRoutes from "./ai.js";
+import authRoutes from "./routers/auth.js";
+import aiRoutes from "./routers/ai.js";
 
 const app = express();
 app.use(bodyParser.json());
