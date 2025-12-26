@@ -1,18 +1,19 @@
 import express from "express";
 import bodyParser from "body-parser";
-import authRoutes from "./routers/auth.js";
-import aiRoutes from "./routers/ai.js";
+import docterRoutes from "./routers/docterRouter.js";
+import patientRoutes from "./routers/patientRouter.js";
+
 
 const app = express();
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   console.log(`Received ${req.method} request for ${req.url} from ${req.ip}`);
-  next(); // Pass control to the next middleware/route handler
+  next(); 
 });
 
-app.use("/api/auth", authRoutes);
-app.use("/api/ai", aiRoutes);
+app.use("/api/docter", docterRoutes);
+app.use("/api/patient",patientRoutes);  
 
 app.listen(5001, () => {
   console.log("Server running on http://localhost:5001");

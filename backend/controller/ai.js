@@ -1,23 +1,19 @@
-import express from "express";
-import jwt from "jsonwebtoken";
 import axios from "axios";
-import { cyborg } from "../cyborg.js";
+import { Cyborg } from "../cyborg.js";
 import { embed } from "../embed.js";
 
-const generateAIResponse = async (req, res) => {
-    try {
-    const token = req.headers.authorization?.split(" ")[1];
-    const { user_id } = jwt.verify(token, "SECRET_KEY");
-
+export const generateAIResponse = async (req, res) => {
+  try {
+    const user_id = req.user_id;
     const { question } = req.body;
     if (!question) {
       return res.status(400).json({ message: "Question required" });
     }
 
-    // 1️⃣ Embed question
     const qVector = await embed(question);
 
     // 2️⃣ Query CyborgDB
+    const cyborg = new Cyborg();
     const result = await cyborg.query({
       collection: "medical_records",
       vector: qVector,
@@ -31,7 +27,7 @@ const generateAIResponse = async (req, res) => {
       .join("\n");
 
     // 4️⃣ Ask AI
-    const aiRes = await axios.post(
+    const aiRes = await axios.post(  //have to change it
       "http://FRIENDS_AI_URL/ask",
       {
         question,
@@ -47,4 +43,4 @@ const generateAIResponse = async (req, res) => {
   }
 };
 
-export { generateAIResponse };
+export default { generateAIResponse };
