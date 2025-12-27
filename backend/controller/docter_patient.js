@@ -32,7 +32,7 @@ export const D_uploadFile = async (req, res) => {
         if (!filename) {
             return res.status(400).json({ message: "Filename required" });
         }
-        const user_id = req.body.patient_id;
+        const user_id = req.params.patient_id;
         const file = req.file.buffer;
         const data = await pdfparse(file);
         const text = data.text;
@@ -73,7 +73,7 @@ export const D_uploadFile = async (req, res) => {
 
 export const D_getreport = async (req, res) => {
     try {
-        const user_id = req.body.patient_Id;
+        const user_id = req.params.patient_id;
         const cyborg = new Cyborg();
         const result = await cyborg.query({
             collection: "medical_records",

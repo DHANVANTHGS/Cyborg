@@ -12,7 +12,7 @@ router.post("/signup", d_signup);
 router.get("/profile", doctorAuth, getdocterprofile);
 router.put("/profile", doctorAuth, updateprofile);
 router.get("/mypatients", doctorAuth, mypatients);
-router.post("/uploadrecord", doctorAuth, docter_patient_auth, upload.single("file"), D_uploadFile);
-router.get("/getrecords", doctorAuth, docter_patient_auth, D_getreport);
+router.post("/uploadrecord/:patient_id", doctorAuth, docter_patient_auth, upload.single("file"), D_uploadFile);
+router.get("/getrecord/:patient_id", doctorAuth, docter_patient_auth, D_getreport);
 
 export default router;  

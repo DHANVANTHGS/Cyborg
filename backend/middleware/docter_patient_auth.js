@@ -9,7 +9,7 @@ const secretkey = process.env.SECRET_KEY;
 export const docter_patient_auth = async (req, res, next) => {
     try {
         const docter_id = req.user_id;
-        const patient_id = req.body.patient_id;
+        const patient_id = req.params.patient_id;
         const docterData = await Docter.findById(docter_id);
         if (!docterData) {
             return res.status(404).json({ message: "Doctor not found" });
