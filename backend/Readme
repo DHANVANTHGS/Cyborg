@@ -9,10 +9,9 @@ to update patient profile - /api/patient/profile :put ,add token in header and b
 to get patient report from patient interface -/api/patient/p_getreport :get , add token in the header
 to upload report from the user interface -/api/patient/p_uploadFiles :post ,add token in the header and send uploaded file as file , refer /backend/middleware/filemiddleware.js
 for ai chatbot -/api/patient/ask :post ,add token in the header and Body-{question}
-To do (Backend):
 to get the docters those who access that patient details - /api/patient/getdocters -get, add token in the header
-to add docter -/api/patient/adddocter -put , add token in the header and Body:{docter_id}
-to remove docter -/api/patient/remove docter -put , add token in header and Body:{docter_id}
+to add docter -/api/patient/adddocter -post , add token in the header and Body:{docter_id}
+to remove docter -/api/patient/removedocter -post , add token in header and Body:{docter_id}
 
 
 //Docter interface

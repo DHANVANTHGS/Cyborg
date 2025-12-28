@@ -162,4 +162,67 @@ export const updateProfile = async (req, res) => {
     }
 };
 
-export default { P_uploadFile, P_getreport, login, signup, getProfile, updateProfile };  
+export const mydocters = async(req, res) => {
+    try {
+        const user_id = req.user_id;
+        const data = await Patient.findById(user_id).populate('docters');
+        if (!data) {
+            return res.status(400).json({ message: "data not found" });
+        }
+        res.status(200).json({ docters: data.docters });
+    }
+    catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: "Internal server error" });
+    }   
+};
+
+export const adddocter = async(req, res) => {
+    const user_id = req.user_id;
+    const dcoter_id = req.body.docter_id;
+    try{
+        const patient = await Patient.findById(user_id);
+        if(!patient){
+            return res.status(404).json({ message: "data not found" });
+        }
+        const docter = await Docter.findOne({docter_id: dcoter_id});
+        if(!docter){
+            return res.status(404).json({ message: "docter not found" });
+        }
+        patient.docters.push(focter_id);
+        await patient.save();
+        docter.patient.push(user_id);
+        await docter.save();
+        res.status(200).json({ message: "docter added successfully" });
+    }
+    catch(error){
+        console.log(error)
+        return res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+export const removedocter = async(req, res) => {
+    const user_id = req.user_id;
+    const dcoter_id = req.body.docter_id;
+    try{
+        const patient = await  Patient.findById(user_id);
+        if(!patient){
+            return res.status(404).json({ message: "data not found" });
+        }
+        const docter = await Docter.findOne({docter_id: dcoter_id});
+        if(!docter){
+            return res.status(404).json({ message: "docter not found" });
+        }
+        patient.docters.pull(docter_id);
+        await patient.save();
+        docter.patient.pull(user_id);
+        await docter.save();
+        res.status(200).json({ message: "docter removed successfully" });
+    }
+    catch(error){
+        console.log(error)
+        return res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+export default { P_uploadFile, P_getreport, login, signup, getProfile, updateProfile, mydocters, adddocter, removedocter };  
